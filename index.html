@@ -80,7 +80,14 @@
                 Kakao.Link.createDefaultButton({
                     objectType: 'text',
                     text: messageForm.text.value,
-                    buttonTitle: messageForm.buttonTitle.value,
+                    buttons: [
+                        {
+                            title: messageForm.buttonTitle.value,
+                            link: {
+                                mobileWebUrl: 'https://jaehong-hwang.github.io',
+                            },
+                        },
+                    ]
                 });
             }
         </script>
