@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>카톡 링크 테스트</title>
+        <link rel="stylesheet" href="/kakaolink/bootstrap.min.css">
+        <style>
+            #app {
+                background-color: #eee;
+                padding-top: 2vh;
+                height: 100vh;
+            }
+
+            .card {
+                width: 20vw;
+                margin: 0 auto;
+            }
+
+            #messageCard {
+                margin-top: 10px;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="card">
+                <div class="card-body">
+                    <form id="initialForm">
+                        <div class="input-group">
+                            <input type="text" name="code" class="form-control" placeholder="앱 코드를 입력 해 주세요">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">초기화</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card hidden" id="messageCard">
+                <div class="card-body">
+                    <form id="messageForm">
+                        <div class="form-group">
+                            <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력 해 주세요">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="content" name="content" class="form-control" placeholder="내용을 입력 해 주세요">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">전송</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="/kakaolink/kakao.min.js"></script>
+        <script>
+            var initialForm = document.querySelector('#initialForm');
+            initialForm.addEventListener('submit', init);
+
+            var messageForm = document.querySelector('#messageForm');
+            messageForm.addEventListener('submit', sendMessage);
+
+            function init(e) {
+                e.preventDefault();
+
+                Kakao.init(initialForm.code.value);
+                if (Kakao.isInitialized()) {
+                    alert('초기화가 되었습니다!');
+
+                    document.querySelector('#messageCard').classList.remove('hidden');
+                } else {
+                    alert('이런, 오류가 발생했습니다!');
+                }
+            }
+
+            function sendMessage(e) {
+                e.preventDefault();
+
+                Kakao.Link.sendCustom({
+                    templateId: 27314,
+                    templateArgs: {
+                        title: messageForm.title.value,
+                        description: messageForm.content.value,
+                    },
+                });
+            }
+        </script>
+    </body>
+</html>
