@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <input type="text" id="buttonTitle" name="buttonTitle" class="form-control" placeholder="버튼 이름을 입력 해 주세요">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">전송</button>
+                        <button type="submit" id="sendBtn" class="btn btn-primary btn-block">전송</button>
                     </form>
                 </div>
             </div>
@@ -78,16 +78,13 @@
                 e.preventDefault();
 
                 Kakao.Link.createDefaultButton({
+                    container: document.querySelector('#sendBtn'),
                     objectType: 'text',
                     text: messageForm.text.value,
-                    buttons: [
-                        {
-                            title: messageForm.buttonTitle.value,
-                            link: {
-                                mobileWebUrl: 'https://jaehong-hwang.github.io',
-                            },
-                        },
-                    ]
+                    buttonTitle: messageForm.buttonTitle.value,
+                    link: {
+                        mobileWebUrl: 'https://jaehong-hwang.github.io',
+                    },
                 });
             }
         </script>
